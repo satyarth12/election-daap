@@ -3,11 +3,10 @@ import json
 from eth_typing import abi
 from web3 import Web3, contract
 
-import time
-
 from rest_framework import status, views, viewsets, generics
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated, IsAdminUser, AllowAny
+from drf_yasg.utils import swagger_auto_schema
 
 ganache_url = "HTTP://127.0.0.1:7545"
 web3 = Web3(Web3.HTTPProvider(ganache_url))
@@ -28,6 +27,15 @@ contract = web3.eth.contract(address=address, abi=abi)
 
 
 class AddCandidateView(views.APIView):
+
+    @swagger_auto_schema(
+        operation_description='''
+        Use this endpoint for adding the candidate to the election's candidate list.
+        Use the ethereum address from the metamask for getting the candidate adress.
+        POST /add/
+        '''
+    )
+    
     def post(self, *args, **kwargs):
         name = self.request.data.get('name')
 
@@ -64,6 +72,13 @@ class AddCandidateView(views.APIView):
 
 
 class GetAllCandidates(views.APIView):
+    @swagger_auto_schema(
+        operation_description='''
+        Use this endpoint for fetching all candidate's data from the blockchain.
+        GET /all-candidates/
+        '''
+    )
+
     def get(self, request):
         candidateCount = contract.functions.candidateCount().call()
         
@@ -77,6 +92,13 @@ class GetAllCandidates(views.APIView):
 
 
 class VoteCandidate(views.APIView):
+    @swagger_auto_schema(
+        operation_description='''
+        Use this endpoint for voting the the particular candidate by just passing it's ID.
+        POST /vote/<int:pk>/
+        '''
+    )
+
     def post(self, request, pk):
 
         nonce = web3.eth.getTransactionCount(public_key)

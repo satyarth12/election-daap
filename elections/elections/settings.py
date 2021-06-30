@@ -37,8 +37,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'drf_yasg',
     'add_and_vote',
-    'rest_framework'
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
@@ -71,6 +72,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'elections.wsgi.application'
 
+REST_FRAMEWORK = {'DEFAULT_SCHEMA_CLASS':'rest_framework.schemas.coreapi.AutoSchema' }
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
