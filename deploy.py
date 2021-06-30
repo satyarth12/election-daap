@@ -8,8 +8,9 @@ web3 = Web3(Web3.HTTPProvider(ganache_url))
 
 print(web3.isConnected())
 
-default_account = "0x6BA0C6D52831dCc4D21a0D932574748E9512e2aD"
-private_key =  "7a4dfac01d753f96bc56acf792b4a1f92389e70595f59618fcc75bf6de444b46"
+default_account = "<public key>"
+# this is the private key associated with the default_accounts
+private_key =  "<private key>"
 
 '''
 Compiling the smart contracts with truffle first
